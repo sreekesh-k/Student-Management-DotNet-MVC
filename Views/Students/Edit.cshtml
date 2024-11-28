@@ -3,3 +3,42 @@
 *@
 @{
 }
+
+@model Student_Management_DotNet_MVC.Models.Entities.Student
+
+<h1>EDIT STUDENT</h1>
+@if (Model is null)
+{
+	<p>No Student Was Found </p>
+}
+else
+{
+	<form method="post">
+
+		<div class="mt-3">
+			<label class="form-label">Id</label>
+			<input class="form-control" type="text" asp-for="Id" readonly />
+		</div>
+		<div class="mt-3">
+			<label class="form-label">Name</label>
+			<input class="form-control" type="text" asp-for="Name" />
+		</div>
+		<div class="mt-3">
+			<label class="form-label">Email</label>
+			<input class="form-control" type="email" asp-for="Email" />
+		</div>
+		<div class="mt-3">
+			<label class="form-label">Phone</label>
+			<input class="form-control" type="text" asp-for="Phone" />
+		</div>
+		<div class="mt-3">
+			<input class="form-check-input" type="checkbox" id="Subscribed" asp-for="Subscribed" />
+			<label class="form-check-label" for="Subscribed">Subscribed</label>
+		</div>
+		<div class="mt-3">
+			<button class="btn btn-primary" type="submit">Save</button>
+		</div>
+
+	</form>
+
+}
