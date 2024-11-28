@@ -37,6 +37,18 @@ namespace Student_Management_DotNet_MVC.Controllers
             return View();
         }
 
- 
+        [HttpGet]
+        public async Task<IActionResult> List()
+        {
+            var students = await dbContext.Students.ToListAsync();
+            return View(students);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Edit(Guid id)
+        {
+            var student = await dbContext.Students.FindAsync(id);
+            return View(student);
+        }
     }
 }
