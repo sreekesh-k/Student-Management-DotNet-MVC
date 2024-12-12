@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Student_Management_DotNet_MVC.Data;
 using Student_Management_DotNet_MVC.Models;
@@ -6,6 +7,7 @@ using Student_Management_DotNet_MVC.Models.Entities;
 
 namespace Student_Management_DotNet_MVC.Controllers
 {
+    [Authorize]
     public class StudentsController : Controller
     {
         private readonly ApplicationDbContext dbContext;
