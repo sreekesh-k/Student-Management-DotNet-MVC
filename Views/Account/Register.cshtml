@@ -6,22 +6,43 @@
 
 @model RegisterViewModel
 
-<form asp-action="Register" method="post">
-    <div>
-        <label asp-for="Username"></label>
-        <input asp-for="Username" />
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header text-center">
+                    <h4>Register</h4>
+                </div>
+                <div class="card-body">
+                    <form asp-action="Register" method="post">
+                        <div class="form-group mb-3">
+                            <label asp-for="Username" class="form-label"></label>
+                            <input asp-for="Username" class="form-control" />
+                        </div>
+                        <div class="form-group mb-3">
+                            <label asp-for="Email" class="form-label"></label>
+                            <input asp-for="Email" type="email" class="form-control" />
+                        </div>
+                        <div class="form-group mb-3">
+                            <label asp-for="Password" class="form-label"></label>
+                            <input asp-for="Password" type="password" class="form-control" />
+                        </div>
+                        <div class="form-group mb-3">
+                            <label asp-for="ConfirmPassword" class="form-label"></label>
+                            <input asp-for="ConfirmPassword" type="password" class="form-control" />
+                        </div>
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-success">Register</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="card-footer text-center">
+                    <p>
+                        Already have an account?
+                        <a asp-action="Login" class="text-decoration-none">Login here</a>
+                    </p>
+                </div>
+            </div>
+        </div>
     </div>
-    <div>
-        <label asp-for="Email"></label>
-        <input asp-for="Email" />
-    </div>
-    <div>
-        <label asp-for="Password"></label>
-        <input asp-for="Password" type="password" />
-    </div>
-    <div>
-        <label asp-for="ConfirmPassword"></label>
-        <input asp-for="ConfirmPassword" type="password" />
-    </div>
-    <button type="submit">Register</button>
-</form>
+</div>
