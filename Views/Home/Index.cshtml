@@ -2,6 +2,79 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="fw-bold display-4">WELCOME TO STUDENT PORTAL ASP WEB APP!</h1>
+<div class="container mt-5">
+    <!-- Welcome Section -->
+    <div class="text-center">
+        <h1 class="fw-bold display-4 text-primary mb-3">Welcome to Student Management Web App!</h1>
+        <p class="lead text-muted">
+            Manage student records seamlessly with our simple CRUD application.
+        </p>
+    </div>
+
+    <!-- Features Section -->
+    <div class="row text-center my-5">
+        <div class="col-md-4">
+            <div class="card shadow border-primary">
+                <div class="card-body">
+                    <h5 class="card-title text-primary">Create</h5>
+                    <p class="card-text">Easily add student details such as name, email, and phone number.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card shadow border-success">
+                <div class="card-body">
+                    <h5 class="card-title text-success">Read</h5>
+                    <p class="card-text">View the list of students with all their details at a glance.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card shadow border-danger">
+                <div class="card-body">
+                    <h5 class="card-title text-danger">Update & Delete</h5>
+                    <p class="card-text">Modify or remove student records whenever needed.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- How It Works Section -->
+    <div class="mt-5">
+        <h2 class="text-center text-info">How It Works</h2>
+        <p class="text-center lead">
+            Built using ASP.NET Core MVC and Entity Framework Core, this app showcases the power of modern web frameworks.
+        </p>
+        <div class="row">
+            <div class="col-md-6">
+                <h4 class="text-secondary">Features:</h4>
+                <ul class="list-group">
+                    <li class="list-group-item">ASP.NET Core MVC for creating robust web applications.</li>
+                    <li class="list-group-item">Entity Framework Core for seamless database operations.</li>
+                    <li class="list-group-item">Bootstrap for responsive and attractive UI.</li>
+                    <li class="list-group-item">Authentication for secure access to features.</li>
+                </ul>
+            </div>
+            <div class="col-md-6">
+                <h4 class="text-secondary">Packages Used:</h4>
+                <ul class="list-group">
+                    <li class="list-group-item">`Microsoft.AspNetCore.Identity` for authentication and user management.</li>
+                    <li class="list-group-item">`Microsoft.EntityFrameworkCore` for database context and migrations.</li>
+                    <li class="list-group-item">`Microsoft.EntityFrameworkCore.SqlServer` for SQL Server database support.</li>
+                    <li class="list-group-item">`Bootstrap` for styling and responsive design.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- CTA Section -->
+    @if (!User.Identity.IsAuthenticated)
+    {
+        <div class="text-center mt-5">
+            <h3 class="fw-bold text-success">Ready to Get Started?</h3>
+            <p class="lead">Log in or register to explore the app!</p>
+            <a asp-action="Login" asp-controller="Account" class="btn btn-primary btn-lg me-2">Login</a>
+            <a asp-action="Register" asp-controller="Account" class="btn btn-outline-primary btn-lg">Register</a>
+        </div>
+    }
 </div>

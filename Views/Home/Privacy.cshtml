@@ -1,6 +1,62 @@
 ﻿@{
     ViewData["Title"] = "Privacy Policy";
 }
-<h1>@ViewData["Title"]</h1>
 
-<p>Use this page to detail your site's privacy policy.</p>
+<div class="container mt-5">
+    <!-- Title Section -->
+    <div class="text-center">
+        <h1 class="fw-bold display-4 text-primary mb-4">@ViewData["Title"]</h1>
+        <p class="lead text-muted">We take your privacy seriously... and add a dash of fun!</p>
+    </div>
+
+    <!-- Fun Privacy Details -->
+    <div class="mt-4">
+        <h3 class="text-success">What We Collect</h3>
+        <p>
+            We collect the bare minimum: your name, email, and maybe your favorite snack (just kidding about the snack).
+            No unnecessary questions, no weird surveys. We promise!
+        </p>
+        <ul class="list-group mb-4">
+            <li class="list-group-item">
+                <strong>Name:</strong> So we can call you something better than "Hey You."
+            </li>
+            <li class="list-group-item">
+                <strong>Email:</strong> For account-related magic like password resets.
+            </li>
+            <li class="list-group-item">
+                <strong>Phone Number:</strong> Only if you choose to share it—strictly for academic purposes (or just CRUD, really).
+            </li>
+        </ul>
+
+        <h3 class="text-danger">What We Don’t Do</h3>
+        <p>
+            Here's a short list of things we absolutely *don’t* do with your data:
+        </p>
+        <ul class="list-group mb-4">
+            <li class="list-group-item">Sell it to random strangers. (Seriously, that's creepy.)</li>
+            <li class="list-group-item">Spam your inbox with "limited-time offers."</li>
+            <li class="list-group-item">Track your every move on the internet. We aren’t that nosy.</li>
+        </ul>
+
+        <h3 class="text-info">How We Keep Your Data Safe</h3>
+        <p>
+            Our app uses the latest and greatest in security tech (think ASP.NET Identity and hashed passwords).
+            In simpler terms: we’re locked down tighter than a treasure chest in a pirate movie.
+        </p>
+        <blockquote class="blockquote text-center">
+            <p class="mb-0">"Your data is safer with us than with your cat's curiosity."</p>
+        </blockquote>
+    </div>
+
+    <!-- Contact Section -->
+    <div class="mt-5 text-center">
+        <h4 class="text-secondary">Questions? Concerns? Compliments?</h4>
+        <p class="lead">Feel free to contact me <a href="https://sreekeshkprabhu.me/">sreekeshkprabhu.me</a>.</p>
+        <p class="text-muted small">We respond faster than you can say "CRUD operations."</p>
+    </div>
+
+    <!-- Back to Home Button -->
+    <div class="text-center mt-4">
+        <a asp-action="Index" asp-controller="Home" class="btn btn-primary btn-lg">Back to Home</a>
+    </div>
+</div>
