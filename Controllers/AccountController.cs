@@ -31,7 +31,7 @@ namespace Student_Management_DotNet_MVC.Controllers
 
                 if (result.Succeeded)
                 {
-                    return RedirectToAction("Students", "List");
+                    return RedirectToAction("List", "Students");
                 }
 
                 ModelState.AddModelError(string.Empty, "Invalid login attempt.");
@@ -54,7 +54,7 @@ namespace Student_Management_DotNet_MVC.Controllers
                 if (result.Succeeded)
                 {
                     await _signInManager.SignInAsync(user, isPersistent: false);
-                    return RedirectToAction("Students", "List");
+                    return RedirectToAction("List", "Students");
                 }
 
                 foreach (var error in result.Errors)
