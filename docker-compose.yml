@@ -1,0 +1,31 @@
+version: '3.4'
+
+services:
+  # ASP.NET Core application
+  web:
+    image: student-management
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "80:8080"
+      - "443:8080"
+    depends_on:
+      - db
+    environment:
+      - ConnectionStrings__DefaultConnection=Server=db;Database=StudentPortalDB;User=admin;Password=admin;
+
+  # SQL Server database
+  db:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=admin
+    ports:
+      - "1433:1433"
+    volumes:
+      - sql-data:/var/opt/mssql
+
+# Named volume to persist database data
+volumes:
+  sql-data:
