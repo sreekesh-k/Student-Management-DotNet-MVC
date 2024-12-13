@@ -5,8 +5,6 @@ FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
 USER $APP_UID
 WORKDIR /app
 EXPOSE 8080
-EXPOSE 8081
-
 
 # This stage is used to build the service project
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
@@ -15,8 +13,11 @@ WORKDIR /src
 COPY ["Student-Management-DotNet-MVC.csproj", "."]
 RUN dotnet restore "./Student-Management-DotNet-MVC.csproj"
 COPY . .
-WORKDIR "/src/."	
+WORKDIR "/src/."
 RUN dotnet build "./Student-Management-DotNet-MVC.csproj" -c $BUILD_CONFIGURATION -o /app/build
+
+# Install dotnet-ef during the build process
+RUN dotnet tool install --global dotnet-ef
 
 # This stage is used to publish the service project to be copied to the final stage
 FROM build AS publish
@@ -26,5 +27,11 @@ RUN dotnet publish "./Student-Management-DotNet-MVC.csproj" -c $BUILD_CONFIGURAT
 # This stage is used in production or when running from VS in regular mode (Default when not using the Debug configuration)
 FROM base AS final
 WORKDIR /app
+
+# Copy dotnet tools from build stage
+COPY --from=build /root/.dotnet/tools /root/.dotnet/tools
+ENV PATH="$PATH:/root/.dotnet/tools"
+
 COPY --from=publish /app/publish .
+
 ENTRYPOINT ["dotnet", "Student-Management-DotNet-MVC.dll"]
