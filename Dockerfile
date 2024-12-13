@@ -1,5 +1,3 @@
-# See https://aka.ms/customizecontainer to learn how to customize your debug container and how Visual Studio uses this Dockerfile to build your images for faster debugging.
-
 # Base stage with SDK (for building and running migrations)
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS base
 WORKDIR /app
@@ -11,9 +9,14 @@ ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["Student-Management-DotNet-MVC.csproj", "."]
 RUN dotnet restore "./Student-Management-DotNet-MVC.csproj"
-COPY . . 
+COPY . .
 WORKDIR "/src/."
 RUN dotnet build "./Student-Management-DotNet-MVC.csproj" -c $BUILD_CONFIGURATION -o /app/build
+
+# Install dotnet-ef tool
+RUN dotnet tool install --global dotnet-ef
+# Add global tools to PATH
+ENV PATH="$PATH:/root/.dotnet/tools"
 
 # Apply migrations during build
 RUN dotnet publish "./Student-Management-DotNet-MVC.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
@@ -26,6 +29,3 @@ COPY --from=build /app/publish .
 
 # Set runtime entry point
 ENTRYPOINT ["dotnet", "Student-Management-DotNet-MVC.dll"]
-
-
-
