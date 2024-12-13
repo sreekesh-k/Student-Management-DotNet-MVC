@@ -2,14 +2,9 @@
 
 # This stage is used when running from VS in fast mode (Default for Debug configuration)
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
+USER $APP_UID
 WORKDIR /app
 EXPOSE 8080
-
-# Ensure the app directory exists and set permissions
-RUN mkdir -p /app && chmod -R 755 /app
-
-# Switch to the application user after directory setup
-USER $APP_UID
 
 # This stage is used to build the service project
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
@@ -37,8 +32,6 @@ WORKDIR /app
 COPY --from=build /root/.dotnet/tools /root/.dotnet/tools
 ENV PATH="$PATH:/root/.dotnet/tools"
 
-
 COPY --from=publish /app/publish .
-
 
 ENTRYPOINT ["dotnet", "Student-Management-DotNet-MVC.dll"]
