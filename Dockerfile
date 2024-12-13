@@ -18,21 +18,21 @@ RUN dotnet build "./Student-Management-DotNet-MVC.csproj" -c $BUILD_CONFIGURATIO
 # Install dotnet-ef during the build process
 RUN dotnet tool install --global dotnet-ef
 
-# This stage is used to publish the service project to be copied to the final stage
-FROM build AS publish
-ARG BUILD_CONFIGURATION=Release
+# Pre-publish the project
 RUN dotnet publish "./Student-Management-DotNet-MVC.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
-# Use the SDK image in the final stage to support dotnet-ef
-FROM base AS final
+# This stage is used in production
+FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS final
 WORKDIR /app
 
 # Copy dotnet tools from build stage
 COPY --from=build /root/.dotnet/tools /root/.dotnet/tools
 ENV PATH="$PATH:/root/.dotnet/tools"
 
-COPY --from=publish /app/publish .
+# Copy published files
+COPY --from=build /app/publish .
 
-# Apply migrations before starting the application
-ENTRYPOINT ["sh", "-c", "dotnet ef database update && dotnet Student-Management-DotNet-MVC.dll"]
+# Apply migrations explicitly pointing to the project
+ENTRYPOINT ["sh", "-c", "dotnet ef database update --project /app/Student-Management-DotNet-MVC.csproj && dotnet Student-Management-DotNet-MVC.dll"]
+
 
