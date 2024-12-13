@@ -6,6 +6,9 @@ USER $APP_UID
 WORKDIR /app
 EXPOSE 8080
 
+# Ensure the app directory exists and is writable for the SQLite database
+RUN mkdir -p /app && chown $APP_UID /app
+
 # This stage is used to build the service project
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
@@ -32,6 +35,12 @@ WORKDIR /app
 COPY --from=build /root/.dotnet/tools /root/.dotnet/tools
 ENV PATH="$PATH:/root/.dotnet/tools"
 
+# Ensure SQLite database file has a valid directory and set permissions
+RUN mkdir -p /app && chmod -R 755 /app
+
 COPY --from=publish /app/publish .
+
+# Optional: Precreate SQLite database file (if required)
+RUN touch /app/StudentPortal.db && chown $APP_UID /app/StudentPortal.db
 
 ENTRYPOINT ["dotnet", "Student-Management-DotNet-MVC.dll"]
