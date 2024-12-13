@@ -34,4 +34,6 @@ ENV PATH="$PATH:/root/.dotnet/tools"
 
 COPY --from=publish /app/publish .
 
-ENTRYPOINT ["dotnet", "Student-Management-DotNet-MVC.dll"]
+# Apply migrations before starting the application
+ENTRYPOINT ["sh", "-c", "dotnet ef database update && dotnet Student-Management-DotNet-MVC.dll"]
+
