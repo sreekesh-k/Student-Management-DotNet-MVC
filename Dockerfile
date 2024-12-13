@@ -37,12 +37,8 @@ WORKDIR /app
 COPY --from=build /root/.dotnet/tools /root/.dotnet/tools
 ENV PATH="$PATH:/root/.dotnet/tools"
 
-# Ensure SQLite database file has a valid directory and set permissions
-RUN mkdir -p /app && chmod -R 755 /app
 
 COPY --from=publish /app/publish .
 
-# Switch to the application user before running the app
-USER $APP_UID
 
 ENTRYPOINT ["dotnet", "Student-Management-DotNet-MVC.dll"]
