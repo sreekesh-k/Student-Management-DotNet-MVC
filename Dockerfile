@@ -7,9 +7,8 @@ EXPOSE 8080
 FROM base AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["Student-Management-DotNet-MVC.csproj", "."]
-RUN dotnet restore "./Student-Management-DotNet-MVC.csproj"
 COPY . .
+RUN dotnet restore "./Student-Management-DotNet-MVC.csproj"
 WORKDIR "/src/."
 RUN dotnet build "./Student-Management-DotNet-MVC.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
